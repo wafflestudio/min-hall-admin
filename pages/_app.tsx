@@ -21,9 +21,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
           rel="stylesheet"
         ></link>
+        <title>민상렬홀 어드민</title>
       </Head>
       <GlobalContext.Provider
         value={{

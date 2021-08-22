@@ -1,11 +1,7 @@
 import ModalUI from './Modal.presenter'
 
-interface Iprops {
-  onClickUserDetailClose: any
-}
-
-const Modal = (props: Iprops) => {
-  return <ModalUI onClickUserDetailClose={props.onClickUserDetailClose} />
+const Modal = () => {
+  return <ModalUI />
 }
 
 export default Modal

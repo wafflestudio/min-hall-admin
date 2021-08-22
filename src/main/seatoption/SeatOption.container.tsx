@@ -1,18 +1,11 @@
-import MainUI from './Main.presenter'
+import SeatOptionUI from './SeatOption.presenter'
 import { useState } from 'react'
-
-const Main = () => {
-  const [boxCheck, setBoxCheck] = useState(false)
+const SeatOption = () => {
   const [buttonIsActive, setButtonIsActive] = useState({
     maxNumber: true,
     hallOpen: true,
     hallClose: true,
   })
-  // const [userDetail, setUserDetail] = useState(false)
-  const onClickCheckBox = (event: any) => {
-    setBoxCheck(event.target.checked)
-  }
-
   const onChangeSeatOption = (event: any) => {
     if (event.target.id === 'maxNumber') {
       if (event.target.value !== event.target.defaultValue) {
@@ -77,15 +70,12 @@ const Main = () => {
       }
     }
   }
-
   return (
-    <MainUI
-      boxCheck={boxCheck}
-      onClickCheckBox={onClickCheckBox}
+    <SeatOptionUI
       onChangeSeatOption={onChangeSeatOption}
       buttonIsActive={buttonIsActive}
     />
   )
 }
 
-export default Main
+export default SeatOption

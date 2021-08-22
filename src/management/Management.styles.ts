@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-interface Iprops {
+interface IProps {
   filtering: any
 }
 
@@ -42,8 +42,8 @@ export const ClickTriangle = styled.div`
   height: 0;
   border-left: 8px solid transparent;
   border-right: 8px solid transparent;
-  border-top: ${(props: Iprops) => props.filtering && '15px solid #555'};
-  border-bottom: ${(props: Iprops) => !props.filtering && '15px solid #555'};
+  border-top: ${(props: IProps) => props.filtering && '15px solid #555'};
+  border-bottom: ${(props: IProps) => !props.filtering && '15px solid #555'};
   cursor: pointer;
 `
 

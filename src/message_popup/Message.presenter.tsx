@@ -17,12 +17,12 @@ import {
   PopUpWarningMessageRegisterButton,
 } from './Message.styles'
 
-interface Iprops {
+interface IProps {
   messageCount: any
   onChangeMessageCount: any
 }
 
-const MessageUI = (props: Iprops) => {
+const MessageUI = (props: IProps) => {
   return (
     <>
       <Header />

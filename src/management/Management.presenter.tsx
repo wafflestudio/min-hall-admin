@@ -2,7 +2,6 @@ import { useContext } from 'react'
 import { GlobalContext } from '../../pages/_app'
 import Header from '../header/Header.container'
 import Modal from '../utils/commons/modal/Modal.container'
-import { ModalBackground } from '../utils/commons/modal/Modal.styles'
 import {
   ClickTriangle,
   Filtering,
@@ -31,13 +30,13 @@ import {
   UserSearchText,
   UserSearchWrapper,
 } from './Management.styles'
-interface Iprops {
+interface IProps {
   onClickFilteringChange: any
   filtering: any
   onClickFilteringValue: any
   filterValue: any
 }
-const ManagementUI = (props: Iprops) => {
+const ManagementUI = (props: IProps) => {
   const temp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   const { userDetail, onClickUserDetailOpen } = useContext(GlobalContext)
   return (
@@ -61,7 +60,7 @@ const ManagementUI = (props: Iprops) => {
                       : '최근 이용순'}
                   </FilteringByRecentUsage>
                   <FilteringById onClick={props.onClickFilteringValue}>
-                    {props.filterValue === '학번순' ? '최근 가입순' : '학번순'}
+                    {props.filterValue === '학번순' ? '최근 가입순' : '학번순'}
                   </FilteringById>
                 </FilteringModalBox>
               )}
