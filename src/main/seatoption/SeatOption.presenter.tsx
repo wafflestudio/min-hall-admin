@@ -50,14 +50,14 @@ const SeatOptionUI = (props: IProps) => {
                 type="number"
                 defaultValue="54"
                 onChange={props.onChangeSeatOption}
-              ></MaxNumberInput>
+              />
               <MaxNumberUnit>명</MaxNumberUnit>
             </MaxNumberFigure>
           </MaxNumberFigureBox>
           <MaxNumberSaveButton disabled={props.buttonIsActive.maxNumber}>
             변경사항 저장
           </MaxNumberSaveButton>
-          <MaxNumberLine></MaxNumberLine>
+          <MaxNumberLine />
         </MaxNumberSettingBox>
         <HallTimeSettingBox>
           <HallTimeExplanation>홀 이용시간 설정</HallTimeExplanation>
@@ -70,7 +70,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 defaultValue="08"
                 onChange={props.onChangeSeatOption}
-              ></HallTimeHourInput>
+              />
               <HallTimeHourText>시</HallTimeHourText>
             </HallTimeHourWrapper>
             <HallTimeMinuteWrapper>
@@ -80,7 +80,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 defaultValue="00"
                 onChange={props.onChangeSeatOption}
-              ></HallTimeMinuteInput>
+              />
               <HallTimeMinuteText>분</HallTimeMinuteText>
             </HallTimeMinuteWrapper>
           </HallTimeWrapper>
@@ -96,7 +96,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 defaultValue="20"
                 onChange={props.onChangeSeatOption}
-              ></HallCloseTimeHourInput>
+              />
               <HallCloseTimeHourText>시</HallCloseTimeHourText>
             </HallCloseTimeHourWrapper>
             <HallCloseTimeMinuteWrapper>
@@ -106,7 +106,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 onChange={props.onChangeSeatOption}
                 defaultValue="00"
-              ></HallCloseTimeMinuteInput>
+              />
               <HallCloseTimeMinuteText>분</HallCloseTimeMinuteText>
             </HallCloseTimeMinuteWrapper>
           </HallCloseTimeWrapper>

@@ -11,6 +11,7 @@ export const SeatMapBox = styled.div`
   background: #ffffff;
   border-radius: 10px;
   padding: 30px;
+  margin: 15px;
 `
 
 export const SeatMapFirstBox = styled.div`

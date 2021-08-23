@@ -1,6 +1,6 @@
 import Header from '../header/Header.container'
 
-import { SeatMapWrapper } from './Main.styles'
+import { MainWrapper, MainInnerWrapper, SeatMapWrapper } from './Main.styles'
 import { useContext } from 'react'
 import Modal from '../utils/commons/modal/Modal.container'
 import { GlobalContext } from '../../pages/_app'
@@ -19,11 +19,15 @@ const Main = () => {
         </>
       )}
       <Header />
-      <SeatMapWrapper>
-        <SeatMap />
-        <SeatOption />
-      </SeatMapWrapper>
-      <SeatUsageHistory />
+      <MainWrapper>
+        <MainInnerWrapper>
+          <SeatMapWrapper>
+            <SeatMap />
+            <SeatOption />
+          </SeatMapWrapper>
+          <SeatUsageHistory />
+        </MainInnerWrapper>
+      </MainWrapper>
     </>
   )
 }
