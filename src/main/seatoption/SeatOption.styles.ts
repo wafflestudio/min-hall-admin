@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 export const SeatOptionBox = styled.div`
-  width: 20.7%;
+  width: 400px;
   /* height: 1183px; */
   background: #ffffff;
   border-radius: 10px;
+  margin: 15px;
 `
 
 export const DateAndCalendar = styled.div`
@@ -13,7 +14,7 @@ export const DateAndCalendar = styled.div`
 `
 
 export const SeatMapDetail = styled.div`
-  padding: 2.11% 7.52% 0px 7.52%;
+  padding: 25px 30px;
   display: flex;
   flex-direction: column;
 `
@@ -92,7 +93,7 @@ export const MaxNumberLine = styled.div`
   margin-top: 40px;
   width: 100%;
   height: 0px;
-  border: 2px solid #dbdbe3;
+  border: 1px solid #dbdbe3;
 `
 export const HallTimeSettingBox = styled.div`
   margin-top: 30px;

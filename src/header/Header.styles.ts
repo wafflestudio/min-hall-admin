@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 
 export const MainHeader = styled.div`
-  width: 100%;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   background-color: #ffffff;

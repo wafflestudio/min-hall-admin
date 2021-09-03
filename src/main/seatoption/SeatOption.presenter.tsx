@@ -68,7 +68,7 @@ const SeatOptionUI = (props: IProps) => {
                 type="number"
                 defaultValue={props.settingsData?.maximumUserCapacity}
                 onChange={props.onChangeSeatOption}
-              ></MaxNumberInput>
+              />
               <MaxNumberUnit>명</MaxNumberUnit>
             </MaxNumberFigure>
           </MaxNumberFigureBox>
@@ -78,7 +78,7 @@ const SeatOptionUI = (props: IProps) => {
           >
             변경사항 저장
           </MaxNumberSaveButton>
-          <MaxNumberLine></MaxNumberLine>
+          <MaxNumberLine />
         </MaxNumberSettingBox>
         <HallTimeSettingBox>
           <HallTimeExplanation>홀 이용시간 설정</HallTimeExplanation>
@@ -91,7 +91,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 defaultValue={props.settingsData?.openTime.slice(0, 2)}
                 onChange={props.onChangeSeatOption}
-              ></HallTimeHourInput>
+              />
               <HallTimeHourText>시</HallTimeHourText>
             </HallTimeHourWrapper>
             <HallTimeMinuteWrapper>
@@ -101,7 +101,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 defaultValue={props.settingsData?.openTime.slice(3, 5)}
                 onChange={props.onChangeSeatOption}
-              ></HallTimeMinuteInput>
+              />
               <HallTimeMinuteText>분</HallTimeMinuteText>
             </HallTimeMinuteWrapper>
           </HallTimeWrapper>
@@ -120,7 +120,7 @@ const SeatOptionUI = (props: IProps) => {
                 maxLength={2}
                 defaultValue={props.settingsData?.closeTime.slice(0, 2)}
                 onChange={props.onChangeSeatOption}
-              ></HallCloseTimeHourInput>
+              />
               <HallCloseTimeHourText>시</HallCloseTimeHourText>
             </HallCloseTimeHourWrapper>
             <HallCloseTimeMinuteWrapper>
