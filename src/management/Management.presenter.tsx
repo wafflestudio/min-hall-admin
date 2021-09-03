@@ -35,9 +35,12 @@ interface IProps {
   filtering: any
   onClickFilteringValue: any
   filterValue: any
+  sortedData: any
+  recent_use: any
+  onClickStudentBlock: any
+  onClickStudentUnBlock: any
 }
 const ManagementUI = (props: IProps) => {
-  const temp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
   const { userDetail, onClickUserDetailOpen } = useContext(GlobalContext)
   return (
     <>
@@ -78,33 +81,85 @@ const ManagementUI = (props: IProps) => {
             </UserSearchWrapper>
           </SearchWrapper>
           <SearchLineDivider />
-          {temp.map((_, index) => (
+          {!props.sortedData &&
+            props.recent_use?.studentDTOList.map((data: any, index: any) => (
+              <>
+                <SearchDetailWrapper>
+                  <SearchDetailLeftPartWrapper>
+                    <SearchDetailLeftImage src="./profile icon.svg" />
+                    <SearchDetailLeftUserId>
+                      유저 ID: {data.userId}
+                    </SearchDetailLeftUserId>
+                  </SearchDetailLeftPartWrapper>
+                  <SearchDetailRightButtonsWrapper>
+                    <SearchDetailRightWarningSign>
+                      누적 경고횟수 : {data.warnings}
+                    </SearchDetailRightWarningSign>
+                    <SearchDetailRightUsageHistoryButton
+                      id={data.userId}
+                      onClick={onClickUserDetailOpen}
+                    >
+                      이용 내역
+                    </SearchDetailRightUsageHistoryButton>
+                    <SearchDetailRightUserBlockButton
+                      id={data.userId}
+                      disabled={!data.enabled}
+                      onClick={props.onClickStudentBlock}
+                    >
+                      유저 차단하기
+                    </SearchDetailRightUserBlockButton>
+                    <SearchDetailRightUserBlockButtonCancel
+                      id={data.userId}
+                      disabled={data.enabled}
+                      onClick={props.onClickStudentUnBlock}
+                    >
+                      차단 해제하기
+                    </SearchDetailRightUserBlockButtonCancel>
+                  </SearchDetailRightButtonsWrapper>
+                </SearchDetailWrapper>
+                {props.recent_use?.studentDTOList.length !== index + 1 && (
+                  <SearchDetailLineDividerWrapper>
+                    <SearchDetailLineDivider />
+                  </SearchDetailLineDividerWrapper>
+                )}
+              </>
+            ))}
+          {props.sortedData?.studentDTOList.map((data: any, index: any) => (
             <>
               <SearchDetailWrapper>
                 <SearchDetailLeftPartWrapper>
                   <SearchDetailLeftImage src="./profile icon.svg" />
                   <SearchDetailLeftUserId>
-                    유저 ID: 2018-00000
+                    유저 ID: {data.userId}
                   </SearchDetailLeftUserId>
                 </SearchDetailLeftPartWrapper>
                 <SearchDetailRightButtonsWrapper>
                   <SearchDetailRightWarningSign>
-                    누적 경고횟수 : 0
+                    누적 경고횟수 : {data.warnings}
                   </SearchDetailRightWarningSign>
                   <SearchDetailRightUsageHistoryButton
+                    id={data.userId}
                     onClick={onClickUserDetailOpen}
                   >
                     이용 내역
                   </SearchDetailRightUsageHistoryButton>
-                  <SearchDetailRightUserBlockButton>
+                  <SearchDetailRightUserBlockButton
+                    id={data.userId}
+                    disabled={!data.enabled}
+                    onClick={props.onClickStudentBlock}
+                  >
                     유저 차단하기
                   </SearchDetailRightUserBlockButton>
-                  <SearchDetailRightUserBlockButtonCancel>
+                  <SearchDetailRightUserBlockButtonCancel
+                    id={data.userId}
+                    disabled={data.enabled}
+                    onClick={props.onClickStudentUnBlock}
+                  >
                     차단 해제하기
                   </SearchDetailRightUserBlockButtonCancel>
                 </SearchDetailRightButtonsWrapper>
               </SearchDetailWrapper>
-              {temp.length !== index + 1 && (
+              {props.sortedData?.studentDTOList.length !== index + 1 && (
                 <SearchDetailLineDividerWrapper>
                   <SearchDetailLineDivider />
                 </SearchDetailLineDividerWrapper>

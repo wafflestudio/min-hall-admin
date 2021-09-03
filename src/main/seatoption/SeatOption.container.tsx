@@ -1,22 +1,69 @@
 import SeatOptionUI from './SeatOption.presenter'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import {
+  useGet_settingsQuery,
+  usePatch_settingsMutation,
+} from './SeatOption.queries'
 const SeatOption = () => {
   const [buttonIsActive, setButtonIsActive] = useState({
     maxNumber: true,
     hallOpen: true,
     hallClose: true,
   })
+  const { data: get_settings_data } = useGet_settingsQuery(null)
+  const openTimeHour = get_settings_data?.openTime.slice(0, 2)
+  const openTimeMinute = get_settings_data?.openTime.slice(3, 5)
+  const closeTimeHour = get_settings_data?.closeTime.slice(0, 2)
+  const closeTimeMinute = get_settings_data?.closeTime.slice(3, 5)
+  const wifiName_data = get_settings_data?.wiFiName
+  const wifiPassword_data = get_settings_data?.wiFiPassword
+  const [wifiName, setWifiName] = useState<string>('')
+  const [wifiPassword, setWifiPassword] = useState<string>('')
+  const [patchSettings] = usePatch_settingsMutation()
+  const [wifiIsActive, setWifiIsActive] = useState<boolean>(true)
+  const [maximumCap, setMaximumCap] = useState<number>()
+  const [hallOpenHour, setHallOpenHour] = useState<string>('')
+  const [hallOpenMinute, setHallOpenMinute] = useState<string>('')
+  const [hallCloseHour, setHallCloseHour] = useState<string>('')
+  const [hallCloseMinute, setHallCloseMinute] = useState<string>('')
+  console.log(get_settings_data)
+  const onChangeWifiName = (event: any) => {
+    if (event.target.value !== event.target.defaultValue) {
+      setWifiName(event.target.value)
+      setWifiIsActive(false)
+      if (wifiPassword === '') {
+        setWifiPassword(wifiPassword_data)
+      }
+    }
+  }
+  const onChangeWifiPassword = (event: any) => {
+    if (event.target.value !== event.target.defaultValue) {
+      setWifiPassword(event.target.value)
+      setWifiIsActive(false)
+      if (wifiName === '') {
+        setWifiName(wifiName_data)
+      }
+    }
+  }
+
   const onChangeSeatOption = (event: any) => {
     if (event.target.id === 'maxNumber') {
       if (event.target.value !== event.target.defaultValue) {
         if (parseInt(event.target.value) > 99) {
           event.target.value = '99'
+          setMaximumCap(Number(event.target.value))
+          const result = {
+            ...buttonIsActive,
+            [event.target.id]: false,
+          }
+          setButtonIsActive(result)
         } else {
           const result = {
             ...buttonIsActive,
             [event.target.id]: false,
           }
           setButtonIsActive(result)
+          setMaximumCap(Number(event.target.value))
         }
       }
     }
@@ -30,21 +77,46 @@ const SeatOption = () => {
           parseInt(event.target.value) > 59
         ) {
           event.target.value = '59'
-        } else if (
-          event.target.id === 'hallOpenHour' &&
-          parseInt(event.target.value) > 23
-        ) {
-          event.target.value = '23'
-        } else {
+          setHallOpenMinute(event.target.value)
           const result = {
             ...buttonIsActive,
             hallOpen: false,
           }
           setButtonIsActive(result)
+        } else if (
+          event.target.id === 'hallOpenHour' &&
+          parseInt(event.target.value) > 23
+        ) {
+          event.target.value = '23'
+          setHallOpenHour(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallOpen: false,
+          }
+          setButtonIsActive(result)
+        } else if (event.target.id === 'hallOpenHour') {
+          setHallOpenHour(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallOpen: false,
+          }
+          setButtonIsActive(result)
+          if (hallOpenMinute === '') {
+            setHallOpenMinute(openTimeMinute)
+          }
+        } else if (event.target.id === 'hallOpenMinute') {
+          setHallOpenMinute(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallOpen: false,
+          }
+          setButtonIsActive(result)
+          if (hallOpenHour === '') {
+            setHallOpenHour(openTimeHour)
+          }
         }
       }
     }
-
     if (
       event.target.id === 'hallCloseHour' ||
       event.target.id === 'hallCloseMinute'
@@ -55,25 +127,105 @@ const SeatOption = () => {
           parseInt(event.target.value) > 59
         ) {
           event.target.value = '59'
-        } else if (
-          event.target.id === 'hallCloseHour' &&
-          parseInt(event.target.value) > 23
-        ) {
-          event.target.value = '23'
-        } else {
+          setHallCloseMinute(event.target.value)
           const result = {
             ...buttonIsActive,
             hallClose: false,
           }
           setButtonIsActive(result)
+        } else if (
+          event.target.id === 'hallCloseHour' &&
+          parseInt(event.target.value) > 23
+        ) {
+          event.target.value = '23'
+          setHallCloseHour(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallClose: false,
+          }
+          setButtonIsActive(result)
+        } else if (event.target.id === 'hallCloseMinute') {
+          setHallCloseMinute(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallClose: false,
+          }
+          setButtonIsActive(result)
+          if (hallCloseHour === '') {
+            setHallCloseHour(closeTimeHour)
+          }
+        } else if (event.target.id === 'hallCloseHour') {
+          setHallCloseMinute(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallClose: false,
+          }
+          setButtonIsActive(result)
+          if (hallCloseMinute === '') {
+            setHallCloseMinute(closeTimeMinute)
+          }
         }
       }
     }
   }
+
+  const onClickMaximumCap = async () => {
+    const maxNumData = { maximumUserCapacity: maximumCap }
+    const response = await patchSettings(maxNumData)
+    if (Object.keys(response).find((key) => key === 'data')) {
+      alert('성공적으로 변경하였습니다')
+      location.reload()
+    } else {
+      alert('다시 시도하여주십시오')
+    }
+  }
+
+  const onClickHallOpen = async () => {
+    const HallOpen = `${hallOpenHour}:${hallOpenMinute}`
+    const HallOpenData = { openTime: HallOpen }
+    const response = await patchSettings(HallOpenData)
+    if (Object.keys(response).find((key) => key === 'data')) {
+      alert('성공적으로 변경하였습니다')
+      location.reload()
+    } else {
+      alert('다시 시도하여주십시오')
+    }
+  }
+  const onClickHallClose = async () => {
+    const HallClose = `${hallCloseHour}:${hallCloseMinute}`
+    const HallCloseData = { closeTime: HallClose }
+    console.log('hallclose', HallClose)
+    const response = await patchSettings(HallCloseData)
+    if (Object.keys(response).find((key) => key === 'data')) {
+      alert('성공적으로 변경하였습니다')
+      location.reload()
+    } else {
+      alert('다시 시도하여주십시오')
+    }
+  }
+  const onClickWifi = async () => {
+    const wifiData = { wiFiName: wifiName, wiFiPassword: wifiPassword }
+    const response = await patchSettings(wifiData)
+    if (Object.keys(response).find((key) => key === 'data')) {
+      alert('성공적으로 변경하였습니다')
+      location.reload()
+    } else {
+      alert('다시 시도하여주십시오')
+    }
+  }
+  useEffect(() => {}, [wifiName, wifiPassword, maximumCap])
   return (
     <SeatOptionUI
       onChangeSeatOption={onChangeSeatOption}
       buttonIsActive={buttonIsActive}
+      onChangeWifiName={onChangeWifiName}
+      onChangeWifiPassword={onChangeWifiPassword}
+      wifiIsActive={wifiIsActive}
+      settingsData={get_settings_data}
+      onClickMaximumCap={onClickMaximumCap}
+      onClickHallOpen={onClickHallOpen}
+      onClickHallClose={onClickHallClose}
+      onClickWifi={onClickWifi}
     />
   )
 }

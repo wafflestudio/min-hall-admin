@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { GlobalContext } from '../../../../pages/_app'
+import { useReservation_detailQuery } from '../../../main/seatmap/SeatMap.queries'
 import {
   CancelButton,
   ModalBackground,
@@ -16,8 +17,9 @@ import {
 } from './Modal.styles'
 
 const ModalUI = () => {
-  const temp = [1, 2, 3, 4, 5, 6, 7, 8]
-  const { onClickUserDetailClose } = useContext(GlobalContext)
+  const { onClickUserDetailClose, userId } = useContext(GlobalContext)
+  const { data: detailData } = useReservation_detailQuery(Number(userId))
+  console.log('userId', detailData)
   return (
     <>
       <ModalBackground onClick={onClickUserDetailClose} />
@@ -27,18 +29,26 @@ const ModalUI = () => {
           <ReservationHistoryExplanation>
             이용 내역
           </ReservationHistoryExplanation>
-          <ReservationID>ID: 2018-00000</ReservationID>
+          <ReservationID>ID: {userId}</ReservationID>
           <ReservationLineDivider />
-          {temp.map((_, idx) => (
+          {detailData?.reservations.map((data: any, idx: any) => (
             <ReservationDetailHistoryBox key={idx}>
               <ReservationDetail>
-                <ReservationDetailDate>2021 / 07 / 21</ReservationDetailDate>
-                <ReservationDetailWarning>
-                  예약 후 사용하지 않음
-                </ReservationDetailWarning>
-                <ReservationDetailTime>15:00 - 17:30 </ReservationDetailTime>
+                <ReservationDetailDate>
+                  {data.startAt.slice(0, 11)}
+                </ReservationDetailDate>
+                {data.isWarned && (
+                  <ReservationDetailWarning>
+                    예약 후 사용하지 않음
+                  </ReservationDetailWarning>
+                )}
+                <ReservationDetailTime>{`${data.startAt.slice(
+                  11
+                )} ~ ${data.endAt.slice(11)}`}</ReservationDetailTime>
               </ReservationDetail>
-              {temp.length !== idx + 1 && <ReservationLineDivider />}
+              {detailData?.reservations.length !== idx + 1 && (
+                <ReservationLineDivider />
+              )}
             </ReservationDetailHistoryBox>
           ))}
         </ModalBox>

@@ -35,7 +35,7 @@ export const MaxNumberFigureBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-top: 59px;
+  margin-top: 30px;
 `
 export const MaxNumberFigure = styled.div`
   width: 155px;
@@ -70,7 +70,7 @@ export const MaxNumberUnit = styled.div`
 `
 
 export const MaxNumberSaveButton = styled.button`
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
   height: 68px;
   border-radius: 10px;
@@ -94,9 +94,8 @@ export const MaxNumberLine = styled.div`
   height: 0px;
   border: 2px solid #dbdbe3;
 `
-
 export const HallTimeSettingBox = styled.div`
-  margin-top: 40px;
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
 `
@@ -110,7 +109,7 @@ export const HallTimeExplanation = styled.div`
 `
 
 export const HallTimeSubExplanation = styled.div`
-  margin-top: 40px;
+  margin-top: 15px;
   font-size: 15px;
   line-height: 31px;
   font-family: 'Noto Sans KR', sans-serif;
@@ -119,7 +118,7 @@ export const HallTimeSubExplanation = styled.div`
 `
 
 export const HallTimeWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -192,7 +191,7 @@ export const HallTimeMinuteText = styled.div`
 `
 
 export const HallCloseTimeExplanation = styled.div`
-  margin-top: 80px;
+  margin-top: 30px;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 700;
   font-size: 15px;
@@ -200,7 +199,7 @@ export const HallCloseTimeExplanation = styled.div`
   color: #9c9d9e;
 `
 export const HallCloseTimeWrapper = styled.div`
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -273,7 +272,7 @@ export const HallCloseTimeMinuteText = styled.div`
 `
 
 export const OpenHallSaveButton = styled.button`
-  margin-top: 50px;
+  margin-top: 30px;
   width: 100%;
   height: 68px;
   border-radius: 10px;
@@ -292,7 +291,90 @@ export const OpenHallSaveButton = styled.button`
 `
 
 export const CloseHallSaveButton = styled.button`
-  margin-top: 50px;
+  margin-top: 30px;
+  width: 100%;
+  height: 68px;
+  border-radius: 10px;
+  background-color: ${(props) => (props.disabled ? '#ececef' : '#21d3d3')};
+  border: 0;
+  color: ${(props) => (props.disabled ? '#b5b5bf' : '#ffffff')};
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  line-height: 31px;
+  font-size: 21px;
+  filter: drop-shadow(3px 3px 4px rgba(0, 0, 0, 0.2));
+  :active {
+    filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.2));
+  }
+  cursor: pointer;
+`
+
+export const WifiSettingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+`
+
+export const WifiSettingText = styled.span`
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 36px;
+  color: #525252;
+`
+export const WifiNameBox = styled.div`
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 31px;
+`
+export const WifiNameText = styled.span`
+  color: #9c9d9e;
+`
+export const WifiNameInput = styled.input`
+  padding-left: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 31px;
+  width: 206px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #dbdbe3;
+  outline: none;
+`
+export const WifiPasswordBox = styled.div`
+  margin-top: 25px;
+  display: flex;
+  flex-direction: row;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 31px;
+`
+export const WifiPasswordText = styled.span`
+  color: #9c9d9e;
+`
+export const WifiPasswordInput = styled.input`
+  padding-left: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 31px;
+  width: 180px;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px solid #dbdbe3;
+  outline: none;
+`
+
+export const WifiSaveButton = styled.button`
+  margin-top: 40px;
   width: 100%;
   height: 68px;
   border-radius: 10px;

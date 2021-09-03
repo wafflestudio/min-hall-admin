@@ -1,9 +1,11 @@
 import styled from '@emotion/styled'
 
 interface IProps {
-  top: any
-  left: any
-  transform: any
+  top?: any
+  left?: any
+  transform?: any
+  seatClicked?: any
+  seatColor?: any
 }
 
 export const SeatMapBox = styled.div`
@@ -48,7 +50,20 @@ export const CheckBox = styled.input`
   width: 22px;
   height: 22px;
 `
+export const HalfCheckBox = styled.input`
+  margin-left: 20px;
+  width: 22px;
+  height: 22px;
+`
 export const AllClickText = styled.span`
+  font-size: 21px;
+  line-height: 31px;
+  font-family: 'Noto Sans KR', sans-serif;
+  margin-left: 12px;
+  font-weight: 700;
+  color: #525252;
+`
+export const HalfClickText = styled.span`
   font-size: 21px;
   line-height: 31px;
   font-family: 'Noto Sans KR', sans-serif;
@@ -242,8 +257,10 @@ export const Chairs = styled.div`
   height: 32.66px;
   top: ${(props: IProps) => props.top};
   left: ${(props: IProps) => props.left};
-  background: #e6e6e9;
+  background: ${(props: IProps) =>
+    props.seatColor ? 'rgba(33,211,211,0.3)' : '#e3c2bd'};
   border-radius: 5px;
+  border: ${(props: IProps) => (props.seatClicked ? '1px solid black' : '0')};
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 400;
   font-size: 18px;
@@ -367,7 +384,7 @@ export const SeatWarningMessageButton = styled.button`
   width: 437px;
   height: 68px;
   border-radius: 10px;
-  background-color: ${(props) => (props.disabled ? '#ececef' : '#21d3d3')};
+  background-color: ${(props) => (props.disabled ? '#ececef' : '#fe6161')};
   border: 0;
   color: ${(props) => (props.disabled ? '#b5b5bf' : '#ffffff')};
   font-family: 'Noto Sans KR', sans-serif;

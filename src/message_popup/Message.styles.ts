@@ -5,10 +5,12 @@ export const PopUpWrapper = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  justify-content: center;
 `
 
 export const PopUpAllUsersMessage = styled.div`
-  width: 47.6%;
+  width: 1830px;
+  height: 1183px;
   background: #ffffff;
   border-radius: 10px;
   margin-bottom: 30px;
@@ -28,12 +30,15 @@ export const PopUpAllUsersMessageTitle = styled.div`
   color: #525252;
 `
 export const PopUpAllUsersMessageBoxWrapper = styled.div`
-  margin: 236px 30px 0px 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 264px;
 `
 export const PopUpAllUsersMessageBox = styled.textarea`
   padding: 25px 30px 0px 30px;
-  width: 100%;
-  height: 400px;
+  width: 855px;
+  height: 432px;
   border: 2px solid #dbdbe3;
   box-sizing: border-box;
   border-radius: 10px;
@@ -51,7 +56,7 @@ export const PopUpAllUsersMessageBox = styled.textarea`
   }
 `
 export const PopUpAllUsersMessageCount = styled.div`
-  margin: 15px 30px 0px 30px;
+  margin: 25px 0px 0px 492px;
   font-family: 'Noto Sans KR', sans-serif;
   font-weight: 700;
   color: #9c9d9e;
@@ -59,7 +64,7 @@ export const PopUpAllUsersMessageCount = styled.div`
   line-height: 31px;
 `
 export const PopUpAllUsersRegisterButtonWrapper = styled.div`
-  margin: 74px 239px 298px 239px;
+  margin: 0px 485px 300px 950px;
 `
 export const PopUpAllUsersRegisterButton = styled.button`
   width: 100%;

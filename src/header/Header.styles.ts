@@ -7,6 +7,7 @@ export const MainHeader = styled.div`
   background-color: #ffffff;
   height: 122px;
   align-items: center;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
 `
 
 export const SnuLogoBox = styled.div`

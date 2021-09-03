@@ -37,6 +37,7 @@ export const DailySeatHistoryLine = styled.div`
   margin-top: 40px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 `
 export const DailySeatStudentImage = styled.div`
