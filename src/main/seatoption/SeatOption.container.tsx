@@ -266,6 +266,7 @@ const SeatOption = () => {
 
   useEffect(() => {
     if (error) {
+      //@ts-ignore
       if (error?.status === 401 && !localStorage.getItem('error')) {
         localStorage.clear()
         localStorage.setItem('error', 'error-exists')
