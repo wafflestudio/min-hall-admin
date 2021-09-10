@@ -37,7 +37,6 @@ const Management = () => {
       setFilterValue(event.target.innerText)
       setFiltering(false)
     }
-    console.log(event.target.innerText)
   }
   const onClickStudentBlock = async (event: any) => {
     const response = await student_block(Number(event.target.id))

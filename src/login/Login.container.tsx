@@ -63,19 +63,15 @@ const Login = () => {
         username: idRef.current.value,
         password: passwordRef.current.value,
       }
-      try {
-        const response = await loginCheck(login).unwrap()
-        if (response.token) {
-          localStorage.setItem('wtw-token', response.token)
-        }
-        setAccessToken(response.token)
-        setLoginInfo(login)
-        dispatch(setCredentials({ token: response.token }))
-        alert('환영합니다!')
-        router.push('/')
-      } catch (error) {
-        alert(error.message)
+      const response = await loginCheck(login).unwrap()
+      if (response.token) {
+        localStorage.setItem('wtw-token', response.token)
       }
+      setAccessToken(response.token)
+      setLoginInfo(login)
+      dispatch(setCredentials({ token: response.token }))
+      alert('환영합니다!')
+      router.push('/')
     } else {
       if (
         idRef.current.value !== 'admin' ||

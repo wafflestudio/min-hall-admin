@@ -9,7 +9,6 @@ import {
 const Message = () => {
   const { data: messageData } = useGet_messagesQuery(null)
   const [popUpMessageUpdate] = usePost_popupMessageMutation()
-  console.log(messageData)
   const [messageCount, setMessageCount] = useState({
     allUsersCount: 0,
     warningCount: 0,

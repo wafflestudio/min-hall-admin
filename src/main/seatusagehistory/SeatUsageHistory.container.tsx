@@ -18,9 +18,6 @@ const SeatUsageHistory = () => {
       data.map((key: any) => dailyUsageHistoryArray.push(key))
     )
   )
-  console.log('reservationLog', dailyUsageHistoryArray)
-  console.log(new Date('2021/07/09 10:30').getTime())
-  console.log(new Date().getTime())
   return <SeatUsageHistoryUI dailyUsageHistoryArray={dailyUsageHistoryArray} />
 }
 

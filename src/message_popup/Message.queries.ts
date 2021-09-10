@@ -5,6 +5,7 @@ export const messageApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://minhall-api.wafflestudio.com/',
     prepareHeaders: (headers, { getState }) => {
+      //@ts-ignore
       const token = getState().auth?.token?.token
       if (token) {
         headers.set('authorization', `Bearer ${token}`)

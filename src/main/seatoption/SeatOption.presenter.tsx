@@ -53,7 +53,6 @@ interface IProps {
 }
 
 const SeatOptionUI = (props: IProps) => {
-  console.log(typeof props.settingsData?.openTime.slice(0, 2))
   return (
     <SeatOptionBox>
       <SeatMapDetail>
