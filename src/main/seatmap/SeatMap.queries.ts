@@ -5,6 +5,7 @@ export const reservationApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://minhall-api.wafflestudio.com/',
     prepareHeaders: (headers, { getState }) => {
+      //@ts-ignore
       const token = getState().auth?.token?.token
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
@@ -36,6 +37,7 @@ export const seatApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://minhall-api.wafflestudio.com/',
     prepareHeaders: (headers, { getState }) => {
+      //@ts-ignore
       const token = getState().auth?.token?.token
       if (token) {
         headers.set('authorization', `Bearer ${token}`)
@@ -59,6 +61,12 @@ export const seatApi = createApi({
         body: body,
       }),
     }),
+    seat_warn: build.mutation({
+      query: (student_id) => ({
+        url: `admin/warn/${student_id}`,
+        method: 'POST',
+      }),
+    }),
   }),
 })
 
@@ -68,4 +76,8 @@ export const {
   useReservation_detailQuery,
 } = reservationApi
 
-export const { useSeat_disableMutation, useSeat_enableMutation } = seatApi
+export const {
+  useSeat_disableMutation,
+  useSeat_enableMutation,
+  useSeat_warnMutation,
+} = seatApi

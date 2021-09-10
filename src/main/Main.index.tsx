@@ -9,12 +9,9 @@ import SeatOption from './seatoption/SeatOption.container'
 import SeatUsageHistory from './seatusagehistory/SeatUsageHistory.container'
 import withAuth from '../utils/commons/hocs/withAuth'
 import { connect } from 'react-redux'
-import { useMessagesQuery } from '../login/Login.queries'
 
 const Main = (props: any) => {
   const { userDetail } = useContext(GlobalContext)
-  const { data: postData } = useMessagesQuery(null)
-  console.log(postData)
   return (
     <>
       {userDetail && (

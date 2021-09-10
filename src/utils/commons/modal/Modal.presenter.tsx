@@ -19,7 +19,6 @@ import {
 const ModalUI = () => {
   const { onClickUserDetailClose, userId } = useContext(GlobalContext)
   const { data: detailData } = useReservation_detailQuery(Number(userId))
-  console.log('userId', detailData)
   return (
     <>
       <ModalBackground onClick={onClickUserDetailClose} />

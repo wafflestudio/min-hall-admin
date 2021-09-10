@@ -56,6 +56,7 @@ import {
   useReservation_statusQuery,
   useSeat_disableMutation,
   useSeat_enableMutation,
+  useSeat_warnMutation,
 } from './SeatMap.queries'
 import { GlobalContext } from '../../../pages/_app'
 
@@ -74,14 +75,13 @@ const SeatMapUI = (props: IProps) => {
   const year_month_date = `${year}/${month}/${date}`
   const { setDateDetail } = useContext(GlobalContext)
   const { data: reservationData } = useReservation_statusQuery(year_month_date)
-
   const [disableSeat] = useSeat_disableMutation()
   const [enableSeat] = useSeat_enableMutation()
+  const [seatWarn] = useSeat_warnMutation()
 
   const handleDateChange = (date: Date | null) => {
     setSelectedDate(date)
   }
-
   const seats_modification = [
     {
       ...reservationData?.seatList[0],
@@ -295,7 +295,6 @@ const SeatMapUI = (props: IProps) => {
     },
     {
       ...reservationData?.seatList[35],
-      isAvailable: true,
       top: '448.44px',
       left: '777.67px',
       transform: 0,
@@ -469,23 +468,30 @@ const SeatMapUI = (props: IProps) => {
       transform: 0,
     },
   ]
+  console.log('seats_modification', seats_modification)
+  console.log('seat_list', reservationData)
+  console.log()
   const seat_clicked = Object.keys(props.seatClicked).filter(
     (key) => props.seatClicked[key] === true
   )
-  console.log('seat_clicked', seat_clicked)
   const one = []
   const one_name: any = []
   const two = []
+  let two_reservation = ''
   for (let seat of seats_modification) {
     for (let key of seat_clicked) {
       if (seat.seatId === key) {
         one.push(seat.isAvailable)
         one_name.push(seat.seatId)
         two.push(seat.isReserved)
+        two_reservation = seat.currentReservation?.studentId
       }
     }
   }
-  console.log('one_name', one_name)
+  console.log(one)
+  console.log(one_name)
+  console.log(two)
+  console.log('two_reservation', two_reservation)
   const seat_disable = one.filter((data) => data === false)
   const seat_enable = one.filter((data) => data === true)
   const seat_warningMessage = two.filter((data) => data === false)
@@ -494,13 +500,9 @@ const SeatMapUI = (props: IProps) => {
     if (seat_disable.length > 0) {
       window.alert('사용불가 좌석이 포함되어있습니다.')
     } else {
-      try {
-        await disableSeat(temp_name)
-        alert('사용불가 좌석으로 변경하였습니다')
-        location.reload()
-      } catch (error) {
-        window.alert(error.message)
-      }
+      await disableSeat(temp_name)
+      alert('사용불가 좌석으로 변경하였습니다')
+      location.reload()
     }
   }
   const onClickSeatEnable = async () => {
@@ -508,13 +510,20 @@ const SeatMapUI = (props: IProps) => {
     if (seat_enable.length > 0) {
       window.alert('사용가능 좌석이 포함되어있습니다.다시 체크하여주십시오.')
     } else {
-      try {
-        await enableSeat(temp_name)
-        alert('사용불가 좌석을 해제하였습니다.')
-        location.reload()
-      } catch (error) {
-        window.alert(error.message)
-      }
+      await enableSeat(temp_name)
+      alert('사용불가 좌석을 해제하였습니다.')
+      location.reload()
+    }
+  }
+  const onClickSeatWarn = async () => {
+    if (two.length > 1 || two_reservation === undefined) {
+      window.alert(
+        '경고메세지는 한번에 한 좌석만 보낼 수 있습니다. 좌석을 다시선택하여주십시오.'
+      )
+    } else {
+      await seatWarn(two_reservation)
+      alert('경고 메세지를 전달하였습니다')
+      location.reload()
     }
   }
   useEffect(() => {
@@ -533,6 +542,7 @@ const SeatMapUI = (props: IProps) => {
       } else return
     }
     colorChange()
+    console.log('seat', reservationData)
   }, [reservationData])
 
   useEffect(() => {
@@ -659,6 +669,7 @@ const SeatMapUI = (props: IProps) => {
             seat_warningMessage.length > 0 ||
             seat_clicked.length === 0
           }
+          onClick={onClickSeatWarn}
         >
           해당 좌석 예약자에게 경고 보내기
         </SeatWarningMessageButton>
