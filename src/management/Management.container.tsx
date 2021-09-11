@@ -16,6 +16,7 @@ const Management = () => {
   const [student_unblock] = useStudent_unblockMutation()
   const { data: idData } = useData_sortedQuery('id')
   const [sortedData, setSortedData] = useState(recent_use)
+  const [idSearch, setIdSearch] = useState('')
   const onClickFilteringChange = () => {
     if (filtering === true) {
       setFiltering(false)
@@ -57,6 +58,10 @@ const Management = () => {
     }
   }
 
+  const onChangeIdSearch = (event: any) => {
+    setIdSearch(event.target.value)
+  }
+
   return (
     <ManagementUI
       onClickFilteringChange={onClickFilteringChange}
@@ -67,6 +72,8 @@ const Management = () => {
       recent_use={recent_use}
       onClickStudentBlock={onClickStudentBlock}
       onClickStudentUnBlock={onClickStudentUnBlock}
+      onChangeIdSearch={onChangeIdSearch}
+      idSearch={idSearch}
     />
   )
 }

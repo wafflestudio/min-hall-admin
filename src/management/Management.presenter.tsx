@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { GlobalContext } from '../../pages/_app'
 import Header from '../header/Header.container'
 import Modal from '../utils/commons/modal/Modal.container'
@@ -39,8 +39,31 @@ interface IProps {
   recent_use: any
   onClickStudentBlock: any
   onClickStudentUnBlock: any
+  onChangeIdSearch: any
+  idSearch: any
 }
 const ManagementUI = (props: IProps) => {
+  console.log('DTOLIST', props.sortedData)
+  const DTO_FILTERDATA = props.recent_use?.studentDTOList.filter(
+    (data: any) => data.userId === Number(props.idSearch)
+  )
+  const DTO_FILTERDATA2 = props.sortedData?.studentDTOList.filter(
+    (data: any) => data.userId === Number(props.idSearch)
+  )
+  useEffect(() => {
+    console.log(
+      'DTO_Filterdata',
+      props.sortedData?.studentDTOList.filter(
+        (data: any) => data.userId === Number(props.idSearch)
+      )
+    )
+    console.log(
+      'DTO_Filterdata2',
+      props.recent_use?.studentDTOList.filter(
+        (data: any) => data.userId === Number(props.idSearch)
+      )
+    )
+  }, [props.idSearch])
   const { userDetail, onClickUserDetailOpen } = useContext(GlobalContext)
   return (
     <div
@@ -83,97 +106,187 @@ const ManagementUI = (props: IProps) => {
             <UserSearchWrapper>
               <UserSearchText>유저 검색</UserSearchText>
               <UserSearchInputWrapper>
-                <UserSearchInput type="text" />
+                <UserSearchInput
+                  type="text"
+                  onChange={props.onChangeIdSearch}
+                />
                 <UserSearchInputImage src="./search.svg" />
               </UserSearchInputWrapper>
             </UserSearchWrapper>
           </SearchWrapper>
           <SearchLineDivider />
-          {!props.sortedData &&
-            props.recent_use?.studentDTOList.map((data: any, index: any) => (
-              <>
-                <SearchDetailWrapper>
-                  <SearchDetailLeftPartWrapper>
-                    <SearchDetailLeftImage src="./profile icon.svg" />
-                    <SearchDetailLeftUserId>
-                      유저 ID: {data.userId}
-                    </SearchDetailLeftUserId>
-                  </SearchDetailLeftPartWrapper>
-                  <SearchDetailRightButtonsWrapper>
-                    <SearchDetailRightWarningSign>
-                      누적 경고횟수 : {data.warnings}
-                    </SearchDetailRightWarningSign>
-                    <SearchDetailRightUsageHistoryButton
-                      id={data.userId}
-                      onClick={onClickUserDetailOpen}
-                    >
-                      이용 내역
-                    </SearchDetailRightUsageHistoryButton>
-                    <SearchDetailRightUserBlockButton
-                      id={data.userId}
-                      disabled={!data.enabled}
-                      onClick={props.onClickStudentBlock}
-                    >
-                      유저 차단하기
-                    </SearchDetailRightUserBlockButton>
-                    <SearchDetailRightUserBlockButtonCancel
-                      id={data.userId}
-                      disabled={data.enabled}
-                      onClick={props.onClickStudentUnBlock}
-                    >
-                      차단 해제하기
-                    </SearchDetailRightUserBlockButtonCancel>
-                  </SearchDetailRightButtonsWrapper>
-                </SearchDetailWrapper>
-                {props.recent_use?.studentDTOList.length !== index + 1 && (
-                  <SearchDetailLineDividerWrapper>
-                    <SearchDetailLineDivider />
-                  </SearchDetailLineDividerWrapper>
-                )}
-              </>
-            ))}
-          {props.sortedData?.studentDTOList.map((data: any, index: any) => (
-            <>
-              <SearchDetailWrapper>
-                <SearchDetailLeftPartWrapper>
-                  <SearchDetailLeftImage src="./profile icon.svg" />
-                  <SearchDetailLeftUserId>
-                    유저 ID: {data.userId}
-                  </SearchDetailLeftUserId>
-                </SearchDetailLeftPartWrapper>
-                <SearchDetailRightButtonsWrapper>
-                  <SearchDetailRightWarningSign>
-                    누적 경고횟수 : {data.warnings}
-                  </SearchDetailRightWarningSign>
-                  <SearchDetailRightUsageHistoryButton
-                    id={data.userId}
-                    onClick={onClickUserDetailOpen}
-                  >
-                    이용 내역
-                  </SearchDetailRightUsageHistoryButton>
-                  <SearchDetailRightUserBlockButton
-                    id={data.userId}
-                    disabled={!data.enabled}
-                    onClick={props.onClickStudentBlock}
-                  >
-                    유저 차단하기
-                  </SearchDetailRightUserBlockButton>
-                  <SearchDetailRightUserBlockButtonCancel
-                    id={data.userId}
-                    disabled={data.enabled}
-                    onClick={props.onClickStudentUnBlock}
-                  >
-                    차단 해제하기
-                  </SearchDetailRightUserBlockButtonCancel>
-                </SearchDetailRightButtonsWrapper>
-              </SearchDetailWrapper>
-              {props.sortedData?.studentDTOList.length !== index + 1 && (
-                <SearchDetailLineDividerWrapper>
-                  <SearchDetailLineDivider />
-                </SearchDetailLineDividerWrapper>
-              )}
-            </>
-          ))}
+          {props.idSearch === ''
+            ? !props.sortedData &&
+              props.recent_use?.studentDTOList.map((data: any, index: any) => (
+                <>
+                  <SearchDetailWrapper>
+                    <SearchDetailLeftPartWrapper>
+                      <SearchDetailLeftImage src="./profile icon.svg" />
+                      <SearchDetailLeftUserId>
+                        유저 ID: {data.userId}
+                      </SearchDetailLeftUserId>
+                    </SearchDetailLeftPartWrapper>
+                    <SearchDetailRightButtonsWrapper>
+                      <SearchDetailRightWarningSign>
+                        누적 경고횟수 : {data.warnings}
+                      </SearchDetailRightWarningSign>
+                      <SearchDetailRightUsageHistoryButton
+                        id={data.userId}
+                        onClick={onClickUserDetailOpen}
+                      >
+                        이용 내역
+                      </SearchDetailRightUsageHistoryButton>
+                      <SearchDetailRightUserBlockButton
+                        id={data.userId}
+                        disabled={!data.enabled}
+                        onClick={props.onClickStudentBlock}
+                      >
+                        유저 차단하기
+                      </SearchDetailRightUserBlockButton>
+                      <SearchDetailRightUserBlockButtonCancel
+                        id={data.userId}
+                        disabled={data.enabled}
+                        onClick={props.onClickStudentUnBlock}
+                      >
+                        차단 해제하기
+                      </SearchDetailRightUserBlockButtonCancel>
+                    </SearchDetailRightButtonsWrapper>
+                  </SearchDetailWrapper>
+                  {props.recent_use?.studentDTOList.length !== index + 1 && (
+                    <SearchDetailLineDividerWrapper>
+                      <SearchDetailLineDivider />
+                    </SearchDetailLineDividerWrapper>
+                  )}
+                </>
+              ))
+            : !props.sortedData &&
+              DTO_FILTERDATA?.map((data: any, index: any) => (
+                <>
+                  <SearchDetailWrapper>
+                    <SearchDetailLeftPartWrapper>
+                      <SearchDetailLeftImage src="./profile icon.svg" />
+                      <SearchDetailLeftUserId>
+                        유저 ID: {data.userId}
+                      </SearchDetailLeftUserId>
+                    </SearchDetailLeftPartWrapper>
+                    <SearchDetailRightButtonsWrapper>
+                      <SearchDetailRightWarningSign>
+                        누적 경고횟수 : {data.warnings}
+                      </SearchDetailRightWarningSign>
+                      <SearchDetailRightUsageHistoryButton
+                        id={data.userId}
+                        onClick={onClickUserDetailOpen}
+                      >
+                        이용 내역
+                      </SearchDetailRightUsageHistoryButton>
+                      <SearchDetailRightUserBlockButton
+                        id={data.userId}
+                        disabled={!data.enabled}
+                        onClick={props.onClickStudentBlock}
+                      >
+                        유저 차단하기
+                      </SearchDetailRightUserBlockButton>
+                      <SearchDetailRightUserBlockButtonCancel
+                        id={data.userId}
+                        disabled={data.enabled}
+                        onClick={props.onClickStudentUnBlock}
+                      >
+                        차단 해제하기
+                      </SearchDetailRightUserBlockButtonCancel>
+                    </SearchDetailRightButtonsWrapper>
+                  </SearchDetailWrapper>
+                  {props.sortedData?.studentDTOList.length !== index + 1 && (
+                    <SearchDetailLineDividerWrapper>
+                      <SearchDetailLineDivider />
+                    </SearchDetailLineDividerWrapper>
+                  )}
+                </>
+              ))}
+          {props.idSearch === ''
+            ? props.sortedData?.studentDTOList.map((data: any, index: any) => (
+                <>
+                  <SearchDetailWrapper>
+                    <SearchDetailLeftPartWrapper>
+                      <SearchDetailLeftImage src="./profile icon.svg" />
+                      <SearchDetailLeftUserId>
+                        유저 ID: {data.userId}
+                      </SearchDetailLeftUserId>
+                    </SearchDetailLeftPartWrapper>
+                    <SearchDetailRightButtonsWrapper>
+                      <SearchDetailRightWarningSign>
+                        누적 경고횟수 : {data.warnings}
+                      </SearchDetailRightWarningSign>
+                      <SearchDetailRightUsageHistoryButton
+                        id={data.userId}
+                        onClick={onClickUserDetailOpen}
+                      >
+                        이용 내역
+                      </SearchDetailRightUsageHistoryButton>
+                      <SearchDetailRightUserBlockButton
+                        id={data.userId}
+                        disabled={!data.enabled}
+                        onClick={props.onClickStudentBlock}
+                      >
+                        유저 차단하기
+                      </SearchDetailRightUserBlockButton>
+                      <SearchDetailRightUserBlockButtonCancel
+                        id={data.userId}
+                        disabled={data.enabled}
+                        onClick={props.onClickStudentUnBlock}
+                      >
+                        차단 해제하기
+                      </SearchDetailRightUserBlockButtonCancel>
+                    </SearchDetailRightButtonsWrapper>
+                  </SearchDetailWrapper>
+                  {props.sortedData?.studentDTOList.length !== index + 1 && (
+                    <SearchDetailLineDividerWrapper>
+                      <SearchDetailLineDivider />
+                    </SearchDetailLineDividerWrapper>
+                  )}
+                </>
+              ))
+            : DTO_FILTERDATA2?.map((data: any, index: any) => (
+                <>
+                  <SearchDetailWrapper>
+                    <SearchDetailLeftPartWrapper>
+                      <SearchDetailLeftImage src="./profile icon.svg" />
+                      <SearchDetailLeftUserId>
+                        유저 ID: {data.userId}
+                      </SearchDetailLeftUserId>
+                    </SearchDetailLeftPartWrapper>
+                    <SearchDetailRightButtonsWrapper>
+                      <SearchDetailRightWarningSign>
+                        누적 경고횟수 : {data.warnings}
+                      </SearchDetailRightWarningSign>
+                      <SearchDetailRightUsageHistoryButton
+                        id={data.userId}
+                        onClick={onClickUserDetailOpen}
+                      >
+                        이용 내역
+                      </SearchDetailRightUsageHistoryButton>
+                      <SearchDetailRightUserBlockButton
+                        id={data.userId}
+                        disabled={!data.enabled}
+                        onClick={props.onClickStudentBlock}
+                      >
+                        유저 차단하기
+                      </SearchDetailRightUserBlockButton>
+                      <SearchDetailRightUserBlockButtonCancel
+                        id={data.userId}
+                        disabled={data.enabled}
+                        onClick={props.onClickStudentUnBlock}
+                      >
+                        차단 해제하기
+                      </SearchDetailRightUserBlockButtonCancel>
+                    </SearchDetailRightButtonsWrapper>
+                  </SearchDetailWrapper>
+                  {props.sortedData?.studentDTOList.length !== index + 1 && (
+                    <SearchDetailLineDividerWrapper>
+                      <SearchDetailLineDivider />
+                    </SearchDetailLineDividerWrapper>
+                  )}
+                </>
+              ))}
         </UserManagement>
       </UserManagmentWrapper>
     </div>
