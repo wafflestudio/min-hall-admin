@@ -43,7 +43,15 @@ interface IProps {
 const ManagementUI = (props: IProps) => {
   const { userDetail, onClickUserDetailOpen } = useContext(GlobalContext)
   return (
-    <>
+    <div
+      className="main-wrapper"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100vw',
+      }}
+    >
       {userDetail && (
         <>
           <Modal />
@@ -168,7 +176,7 @@ const ManagementUI = (props: IProps) => {
           ))}
         </UserManagement>
       </UserManagmentWrapper>
-    </>
+    </div>
   )
 }
 

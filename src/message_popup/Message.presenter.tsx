@@ -18,7 +18,15 @@ interface IProps {
 
 const MessageUI = (props: IProps) => {
   return (
-    <>
+    <div
+      className="main-wrapper"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100vw',
+      }}
+    >
       <Header />
       <PopUpWrapper>
         <PopUpAllUsersMessage>
@@ -43,7 +51,7 @@ const MessageUI = (props: IProps) => {
           </PopUpAllUsersRegisterButtonWrapper>
         </PopUpAllUsersMessage>
       </PopUpWrapper>
-    </>
+    </div>
   )
 }
 
