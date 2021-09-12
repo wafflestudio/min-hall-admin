@@ -55,14 +55,13 @@ const Login = () => {
   }
 
   const loginValidation = async () => {
-    if (
-      idRef.current.value === 'admin' &&
-      passwordRef.current.value === 'password'
-    ) {
-      const login = {
-        username: idRef.current.value,
-        password: passwordRef.current.value,
-      }
+    const login = {
+      username: idRef.current.value,
+      password: passwordRef.current.value,
+    }
+    const response_temp = await loginCheck(login)
+    //@ts-ignore
+    if (response_temp?.data?.token) {
       const response = await loginCheck(login).unwrap()
       if (response.token) {
         localStorage.setItem('wtw-token', response.token)
@@ -72,14 +71,10 @@ const Login = () => {
       dispatch(setCredentials({ token: response.token }))
       alert('환영합니다!')
       router.push('/')
-    } else {
-      if (
-        idRef.current.value !== 'admin' ||
-        passwordRef.current.value !== 'password'
-      ) {
-        passwordRef.current.style.border = '3px solid red'
-        alert('다시한번 아이디 혹은 비밀번호를 확인해주세요')
-      }
+      //@ts-ignore
+    } else if (response_temp?.error?.status === 400) {
+      passwordRef.current.style.border = '3px solid red'
+      alert('등록되지 않은 아이디 혹은 비밀번호입니다')
     }
   }
 
