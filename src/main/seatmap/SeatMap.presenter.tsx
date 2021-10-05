@@ -468,9 +468,6 @@ const SeatMapUI = (props: IProps) => {
       transform: 0,
     },
   ]
-  console.log('seats_modification', seats_modification)
-  console.log('seat_list', reservationData)
-  console.log()
   const seat_clicked = Object.keys(props.seatClicked).filter(
     (key) => props.seatClicked[key] === true
   )
@@ -488,10 +485,6 @@ const SeatMapUI = (props: IProps) => {
       }
     }
   }
-  console.log(one)
-  console.log(one_name)
-  console.log(two)
-  console.log('two_reservation', two_reservation)
   const seat_disable = one.filter((data) => data === false)
   const seat_enable = one.filter((data) => data === true)
   const seat_warningMessage = two.filter((data) => data === false)
@@ -542,7 +535,6 @@ const SeatMapUI = (props: IProps) => {
       } else return
     }
     colorChange()
-    console.log('seat', reservationData)
   }, [reservationData])
 
   useEffect(() => {

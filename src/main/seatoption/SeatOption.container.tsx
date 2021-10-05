@@ -176,6 +176,16 @@ const SeatOption = () => {
             setHallCloseMinute(closeTimeMinute)
           }
           setButtonIsActive(result)
+        } else if (event.target.id === 'hallCloseHour') {
+          setHallCloseHour(event.target.value)
+          const result = {
+            ...buttonIsActive,
+            hallClose: false,
+          }
+          setButtonIsActive(result)
+          if (hallCloseMinute === '') {
+            setHallCloseMinute(closeTimeMinute)
+          }
         } else if (
           event.target.id === 'hallCloseMinute' &&
           parseInt(event.target.value) >= 30
@@ -205,16 +215,6 @@ const SeatOption = () => {
           if (hallCloseHour === '') {
             setHallCloseHour(closeTimeHour)
           }
-        } else if (event.target.id === 'hallCloseHour') {
-          setHallCloseMinute(event.target.value)
-          const result = {
-            ...buttonIsActive,
-            hallClose: false,
-          }
-          setButtonIsActive(result)
-          if (hallCloseMinute === '') {
-            setHallCloseMinute(closeTimeMinute)
-          }
         }
       }
     }
@@ -233,6 +233,7 @@ const SeatOption = () => {
 
   const onClickHallOpen = async () => {
     const HallOpen = `${hallOpenHour}:${hallOpenMinute}`
+    console.log(HallOpen)
     const HallOpenData = { openTime: HallOpen }
     const response = await patchSettings(HallOpenData)
     if (Object.keys(response).find((key) => key === 'data')) {
@@ -244,6 +245,7 @@ const SeatOption = () => {
   }
   const onClickHallClose = async () => {
     const HallClose = `${hallCloseHour}:${hallCloseMinute}`
+    console.log(HallClose)
     const HallCloseData = { closeTime: HallClose }
     const response = await patchSettings(HallCloseData)
     if (Object.keys(response).find((key) => key === 'data')) {

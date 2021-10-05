@@ -43,7 +43,6 @@ interface IProps {
   idSearch: any
 }
 const ManagementUI = (props: IProps) => {
-  console.log('DTOLIST', props.sortedData)
   const DTO_FILTERDATA = props.recent_use?.studentDTOList.filter(
     (data: any) => data.userId === Number(props.idSearch)
   )
